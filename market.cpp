@@ -3,11 +3,11 @@
 using namespace std;
 const int SIZE = 5;
 
-string inv[SIZE] = {"TOMATO-7", "NONE", "NONE", "NONE", "NONE"};
-string store[SIZE] = {"POTATO", "XXX", "NONE", "NONE", "NONE"};
+string inv[SIZE] = {"NONE", "NONE", "NONE", "NONE", "NONE"};
+string store[SIZE] = {"NONE", "NONE", "NONE", "NONE", "NONE"};
 
-int invstock[SIZE] = {100, 0, 0, 0, 0};
-int storestock[SIZE] = {45, 90, 0, 0, 0};
+int invstock[SIZE] = {0, 0, 0, 0, 0};
+int storestock[SIZE] = {0, 0, 0, 0, 0};
 
 double storeprice[SIZE] = {0, 0, 0, 0, 0};
 
@@ -92,8 +92,9 @@ void invCheck(){
     // if 2 of inventory slot is same merges them
     for (int i = 0; i < SIZE; i++){
         if ( inv[i] == inv[i + 1]){
+            invstock[i] += invstock[i + 1];
             invstock[i + 1] = 0;
-            inv[i] = "NONE";
+            inv[i + 1] = "NONE";
         }
     }
     // if inventory slot is empty(zero) deletes item
@@ -108,9 +109,10 @@ void storeCheck(){
     // if 2 of store slot is same merges them
     for (int i = 0; i < SIZE; i++){
         if ( store[i] == store[i + 1]){
+            storestock[i] += storestock[i + 1];
             storestock[i + 1] = 0;
             storeprice[i + 1] = 0;
-            store[i] = "NONE";
+            store[i + 1] = "NONE";
         }
     }
     // if store slot is empty(zero) deletes item
@@ -126,7 +128,9 @@ void storeCheck(){
 void showInv(){
     cout << "YOUR INVENTORY" << endl;
     for (int i = 0; i < SIZE; i++){
+        if(invstock[i > 0]){
         cout << "SLOT " << i + 1 << ": " << inv[i] << " - " << invstock[i] << endl; 
+        }
     }
 }
 void showStore(){
