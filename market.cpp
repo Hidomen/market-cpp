@@ -3,13 +3,13 @@
 using namespace std;
 const int SIZE = 5;
 
-string inv[SIZE] = {"NONE", "NONE", "NONE", "NONE", "NONE"};
-string store[SIZE] = {"NONE", "NONE", "NONE", "NONE", "NONE"};
+string inv[SIZE] = {"CUCUMBER", "NONE", "NONE", "NONE", "NONE"};
+string store[SIZE] = {"TOMATO-7", "NONE", "NONE", "NONE", "NONE"};
 
-int invstock[SIZE] = {0, 0, 0, 0, 0};
-int storestock[SIZE] = {0, 0, 0, 0, 0};
+int invstock[SIZE] = {10, 0, 0, 0, 0};
+int storestock[SIZE] = {500, 0, 0, 0, 0};
 
-double storeprice[SIZE] = {0, 0, 0, 0, 0};
+double storeprice[SIZE] = {10, 0, 0, 0, 0};
 
 double money = 0.01;
 
