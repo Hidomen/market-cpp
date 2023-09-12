@@ -44,7 +44,7 @@ void startSec(){
     cout << "Welcome to grand bazaar" << endl;
     do {
     cout << "If you want to back to main menu from any menu please type '-1'" << endl; // cbb here
-    cout << "1. SHOW STORE | 2. SELL | 3. BUY | 4. INVENTORY | 5. EAT | 6. SHOW MONEY | 7. | 8. | 9. EXIT" << endl;
+    cout << "1. SHOW STORE | 2. SELL | 3. BUY | 4. INVENTORY | 5. EAT | 6. SHOW MONEY | 9. EXIT" << endl;
 
     cin >> op;
     back(op);
