@@ -2,32 +2,33 @@
 
 using namespace std;
 const int SIZE = 5;
+                    // for test
+string inv[SIZE] = {"TOMATO-7", "AAA0", "AAA1", "AAA2", "AAA3"};
+string store[SIZE] = {"POTATO", "NONE", "NONE", "NONE", "NONE"};
 
-string inv[SIZE] = {"CUCUMBER", "NONE", "NONE", "NONE", "NONE"};
-string store[SIZE] = {"TOMATO-7", "NONE", "NONE", "NONE", "NONE"};
+int invstock[SIZE] = {100, 50, 10, 20, 30};
+int storestock[SIZE] = {45, 0, 0, 0, 0};
 
-int invstock[SIZE] = {10, 0, 0, 0, 0};
-int storestock[SIZE] = {500, 0, 0, 0, 0};
-
-double storeprice[SIZE] = {10, 0, 0, 0, 0};
+double storeprice[SIZE] = {0, 0, 0, 0, 0};
 
 double money = 0.01;
 
-void startSec(); //
-//void sell();
+void startSec();
+void sell();
 void buy();
 
-void showInv(); //
-void showStore(); //
+void showInv();
+void showStore();
 
-void eat(); //
-void showMoney(); //
+void eat();
+void showMoney();
 
-void invCheck(); //
-void storeCheck(); //
+void invCheck();
+void storeCheck();
 
 void back(int userinput);
-void invadd(string food, int amount);
+void invadd(int op, string food, int amount);
+void storeadd(int op, string food, int amount, double price);
 
 int main(){
     invCheck();
@@ -44,7 +45,7 @@ void startSec(){
     cout << "Welcome to grand bazaar" << endl;
     do {
     cout << "If you want to back to main menu from any menu please type '-1'" << endl; // cbb here
-    cout << "1. SHOW STORE | 2. SELL | 3. BUY | 4. INVENTORY | 5. EAT | 6. SHOW MONEY | 9. EXIT" << endl;
+    cout << "1. STORE | 2. INVENTORY | 3. SELL | 4. BUY | 5. EAT | 6. MONEY | 9. EXIT" << endl;
 
     cin >> op;
     back(op);
@@ -55,15 +56,15 @@ void startSec(){
             main();
             break;
         case 2:
-            //sell();
+            showInv();
             main();
             break;
         case 3:
-            buy();
+            sell();
             main();
             break;
         case 4:
-            showInv();
+            buy();
             main();
             break;
         case 5:
@@ -199,8 +200,7 @@ void buy(){
             cin >> amount;
             if ( amount > 0){
                 if ( storestock[op - 1] >= amount){
-                    storestock[op - 1] -= amount;
-                    invadd(store[op - 1], amount);
+                    invadd(op, store[op - 1], amount); // SUCESS
                 } else {
                     cout << " TOO MUCH MAN" << endl;
                 }
@@ -217,13 +217,71 @@ void buy(){
         buy();
     }
 }
+void sell(){
+    int op, amount, price;
+    showInv();
+    cout << "What do you want to sell?\n";
+    cin >> op;
+    back(op);
 
-void invadd(string food, int amount){
+        if( op < SIZE && op > 0){
+            if(inv[op - 1] != "NONE"){
+                cout << "How many?: \n";
+                cin >> amount;
+                back(amount);
+
+                if(invstock[op - 1] > amount){
+                    cout << "Whats the price ?: \n";
+                    cin >> price;
+                    back(price);
+
+                    if(price > 0){
+                        storeadd(op, inv[op - 1], amount, price);
+                    } else {
+                        cout << "price must be bigger than 0\n";
+                        sell();
+                    }
+
+                } else {
+                    cout << "You dont have that much\n";
+                    sell();
+                }
+            } else {
+                cout << "You dont have any\n";
+                sell();
+            }
+        }
+
+}
+
+void invadd(int op, string food, int amount){
     for (int i = 0; i < SIZE; i++){
         if (inv[i] == "NONE"){
             inv[i] = food;
             invstock[i] = amount;
+            storestock[op - 1] -= amount;
+            break;
+        } else if(i == SIZE - 1){
+            cout << "THERE IS NO SPACE\n";
+        }
+    }
+}
+void storeadd(int op, string food, int amount, double price){
+    for (int i = 0; i < SIZE; i++){
+        if(store[i] == "NONE"){
+            store[i] = food;
+            storestock[i] = amount;
+            storeprice[i] = price;
             break;
         }
     }
 }
+
+
+
+// make buy ==almost== sell
+
+
+
+
+
