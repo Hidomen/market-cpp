@@ -11,3 +11,9 @@ Functions of the code;
 - EAT : Eats items in inventory
 - MONEY : Shows your money
 - EXIT : Shuts down programme.
+
+  SHORTCOMINGS
+  - Money system un-working
+  - Sell system un-working
+  - Eat system will be better
+  - Store and Inventory Slots currently finite for 5
