@@ -1,10 +1,9 @@
 #include <iostream>
 
-using namespace std;
 const int SIZE = 5;
                     // for test
-string inv[SIZE] = {"TOMATO-7", "AAA0", "AAA1", "AAA2", "AAA3"};
-string store[SIZE] = {"POTATO", "NONE", "NONE", "NONE", "NONE"};
+std::string inv[SIZE] = {"TOMATO-7", "AAA0", "AAA1", "AAA2", "AAA3"};
+std::string store[SIZE] = {"POTATO", "NONE", "NONE", "NONE", "NONE"};
 
 int invstock[SIZE] = {100, 50, 10, 20, 30};
 int storestock[SIZE] = {45, 0, 0, 0, 0};
@@ -27,8 +26,8 @@ void invCheck();
 void storeCheck();
 
 void back(int userinput);
-void invadd(int op, string food, int amount);
-void storeadd(int op, string food, int amount, double price);
+void invadd(int op, std::string food, int amount);
+void storeadd(int op, std::string food, int amount, double price);
 
 int main(){
     invCheck();
@@ -42,12 +41,12 @@ int main(){
 void startSec(){
     int op;
 
-    cout << "Welcome to grand bazaar" << endl;
+    std::cout << "Welcome to grand bazaar\n";
     do {
-    cout << "If you want to back to main menu from any menu please type '-1'" << endl; // cbb here
-    cout << "1. STORE | 2. INVENTORY | 3. SELL | 4. BUY | 5. EAT | 6. MONEY | 9. EXIT" << endl;
+    std::cout << "If you want to back to main menu from any menu please type '-1'\n"; // cbb here
+    std::cout << "1. STORE | 2. INVENTORY | 3. SELL | 4. BUY | 5. EAT | 6. MONEY | 9. EXIT\n";
 
-    cin >> op;
+    std::cin >> op;
     back(op);
 
     switch (op){
@@ -76,17 +75,17 @@ void startSec(){
             main();
             break;
         case 9:
-            cout << "Exitting..." << endl;
+            std::cout << "Exitting...\n";
             break;
         default:
-            cout << "Invalid option" << endl;
+            std::cout << "Invalid option\n";
             break;
         }
     } while ( op != 9);
 
 }
 void showMoney(){
-    cout << "You have $" << money << " dollars" << endl;
+    std::cout << "You have $" << money << " dollars\n";
 }
 
 void invCheck(){
@@ -127,18 +126,18 @@ void storeCheck(){
 }
 
 void showInv(){
-    cout << "YOUR INVENTORY" << endl;
+    std::cout << "YOUR INVENTORY\n";
     for (int i = 0; i < SIZE; i++){
         if(invstock[i > 0]){
-        cout << "SLOT " << i + 1 << ": " << inv[i] << " - " << invstock[i] << endl; 
+        std::cout << "SLOT " << i + 1 << ": " << inv[i] << " - " << invstock[i] << '\n'; 
         }
     }
 }
 void showStore(){
-    cout << "STORE SHELFS" << endl;
+    std::cout << "STORE SHELFS\n";
     for (int i = 0; i < SIZE; i++){
         if (storestock[i] > 0){
-        cout << "SLOT " << i + 1 << ": " << store[i] << " - " << storestock[i] << " - " << storeprice[i] << endl; 
+        std::cout << "SLOT " << i + 1 << ": " << store[i] << " - " << storestock[i] << " - " << storeprice[i] << '\n'; 
         }
     }
 }
@@ -146,32 +145,32 @@ void showStore(){
 void eat(){
     int op, amount;
     showInv();
-    cout << "Which one do you want to eat?: " << endl;
-    cin >> op;
+    std::cout << "Which one do you want to eat?: \n";
+    std::cin >> op;
     back(op);
 
     if (op > 5 || op < 1){
-        cout << "Invalid option." << endl;
+        std::cout << "Invalid option.\n";
         eat();
     } else {
         if ( invstock[op - 1] > 0 ){
-            cout << "How much?: " << endl;
+            std::cout << "How much?: \n";
             do{
-            cin >> amount;
+            std::cin >> amount;
             back(amount);
 
             if (amount <= 0){
-                cout << "You can't eat that much" << endl;
+                std::cout << "You can't eat that much\n";
             } else {
                 if (invstock[op - 1] > amount){
                     invstock[op - 1] -= amount;
                     } else {
-                    cout << "Insufficient Stock. Please re-entry the amount" << endl;
+                    std::cout << "Insufficient Stock. Please re-entry the amount\n";
                 }
             }
             } while (invstock[op - 1] < amount || amount <= 0);
         } else {
-            cout << "You don't have any" << endl;
+            std::cout << "You don't have any\n";
         }
     }
 
@@ -179,7 +178,7 @@ void eat(){
 
 void back(int userinput){
     if(userinput == -1){
-        cout << "Backing to main menu \n\n";
+        std::cout << "Backing to main menu \n\n";
         main();
     }
 }
@@ -188,73 +187,73 @@ void buy(){
     int op, amount;
 
     showStore();
-    cout << "Which one do you want to buy" << endl;
-    cin >> op;
+    std::cout << "Which one do you want to buy\n";
+    std::cin >> op;
     back(op);
 
     if ( op >= 1 && op <= 5){
         if (storestock[op - 1] > 0){
 
-            cout << "How many? " << endl;
+            std::cout << "How many? \n";
             do{
-            cin >> amount;
+            std::cin >> amount;
             if ( amount > 0){
                 if ( storestock[op - 1] >= amount){
                     invadd(op, store[op - 1], amount); // SUCESS
                 } else {
-                    cout << " TOO MUCH MAN" << endl;
+                    std::cout << " TOO MUCH MAN\n";
                 }
                 } else {
-                cout << "Amount must be bigger than zero" << endl;
+                std::cout << "Amount must be bigger than zero\n";
                 }
             } while ( amount <= 0 || storestock[op - 1] < amount);
         } else {
-            cout << "They don't have any" << endl;
+            std::cout << "They don't have any\n";
         }
 
     } else {
-        cout << "Invalid option" << endl;
+        std::cout << "Invalid option\n";
         buy();
     }
 }
 void sell(){
     int op, amount, price;
     showInv();
-    cout << "What do you want to sell?\n";
-    cin >> op;
+    std::cout << "What do you want to sell?\n";
+    std::cin >> op;
     back(op);
 
         if( op < SIZE && op > 0){
             if(inv[op - 1] != "NONE"){
-                cout << "How many?: \n";
-                cin >> amount;
+                std::cout << "How many?: \n";
+                std::cin >> amount;
                 back(amount);
 
                 if(invstock[op - 1] > amount){
-                    cout << "Whats the price ?: \n";
-                    cin >> price;
+                    std::cout << "Whats the price ?: \n";
+                    std::cin >> price;
                     back(price);
 
                     if(price > 0){
                         storeadd(op, inv[op - 1], amount, price);
                     } else {
-                        cout << "price must be bigger than 0\n";
+                        std::cout << "price must be bigger than 0\n";
                         sell();
                     }
 
                 } else {
-                    cout << "You dont have that much\n";
+                    std::cout << "You dont have that much\n";
                     sell();
                 }
             } else {
-                cout << "You dont have any\n";
+                std::cout << "You dont have any\n";
                 sell();
             }
         }
 
 }
 
-void invadd(int op, string food, int amount){
+void invadd(int op, std::string food, int amount){
     for (int i = 0; i < SIZE; i++){
         if (inv[i] == "NONE"){
             inv[i] = food;
@@ -262,11 +261,11 @@ void invadd(int op, string food, int amount){
             storestock[op - 1] -= amount;
             break;
         } else if(i == SIZE - 1){
-            cout << "THERE IS NO SPACE\n";
+            std::cout << "THERE IS NO SPACE\n";
         }
     }
 }
-void storeadd(int op, string food, int amount, double price){
+void storeadd(int op, std::string food, int amount, double price){
     for (int i = 0; i < SIZE; i++){
         if(store[i] == "NONE"){
             store[i] = food;
@@ -276,12 +275,3 @@ void storeadd(int op, string food, int amount, double price){
         }
     }
 }
-
-
-
-// make buy ==almost== sell
-
-
-
-
-
